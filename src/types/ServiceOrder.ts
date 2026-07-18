@@ -1,9 +1,12 @@
-export type ServiceStatus = 'aberto' | 'em_andamento' | 'finalizado'
+export type ServiceOrderStatus = 'open' | 'in_progress' | 'done'
 
 export interface ServiceOrder {
-  id: string
-  clientName: string
-  deviceModel: string
+  id: number
+  client_id: number
+  device: string
   issue: string
-  status: ServiceStatus
+  status: ServiceOrderStatus
+  created_at: string
 }
+
+export type CreateServiceOrderData = Omit<ServiceOrder, 'id' | 'created_at'>
