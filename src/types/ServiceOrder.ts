@@ -9,4 +9,9 @@ export interface ServiceOrder {
   created_at: string
 }
 
-export type CreateServiceOrderData = Omit<ServiceOrder, 'id' | 'created_at'>
+export interface CreateServiceOrderData {
+  clientId: number
+  device: string
+  issue: string
+  status: ServiceOrderStatus
+}
