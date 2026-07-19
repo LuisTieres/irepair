@@ -6,7 +6,7 @@ import {
 } from '../services/serviceOrderService'
 import { getAllClients } from '../services/clientService'
 import type { ServiceOrder, CreateServiceOrderData, Client } from '../types'
-
+import axios from 'axios';
 export function ServiceOrdersPage() {
   const [orders, setOrders] = useState<ServiceOrder[]>([])
   const [clients, setClients] = useState<Client[]>([])
@@ -46,7 +46,7 @@ export function ServiceOrdersPage() {
     if (!clientId || !device || !issue) return
 
     const newOrder: CreateServiceOrderData = {
-      client_id: Number(clientId),
+      clientId: Number(clientId),
       device,
       issue,
       status: 'open',
@@ -59,6 +59,10 @@ export function ServiceOrdersPage() {
       setIssue('')
       await loadData()
     } catch (e) {
+      console.error('Erro ao criar OS:', e)
+      if (axios.isAxiosError(e)) {
+        console.error('Resposta da API:', e.response?.data)
+      }
       setError('Não foi possível cadastrar a ordem de serviço.')
     }
   }
