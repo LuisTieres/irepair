@@ -153,7 +153,7 @@ export function ServiceOrdersPage() {
             >
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold">
-                  {getClientName(order.client_id)}
+                  {getClientName(order.clientId)}
                 </h3>
                 <span
                   className={`text-xs font-medium px-2 py-1 rounded-full border ${statusStyles[order.status]}`}
