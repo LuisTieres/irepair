@@ -1,12 +1,20 @@
-import axios from 'axios';
+import axios from 'axios'
 
 export const api = axios.create({
-  baseURL: 'https://trainee.fidelis.workers.dev/api',
-  withCredentials: false,
+  baseURL: import.meta.env.VITE_API_URL,
+  withCredentials: true,
   headers: {
-    // ✔️ Cole aqui o seu token pessoal!
-    // Acesse trainee.fidelis.workers.dev/inicio para pegar o seu.
-    'Authorization': 'Bearer 04dc7d0d-6444-4e64-878f-80ecf6ea0a4d',
     'Content-Type': 'application/json',
   },
-});
+})
+
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const isAuthRoute = error.config?.url?.includes('/auth/')
+    if (error.response?.status === 401 && !isAuthRoute) {
+      window.location.href = '/login'
+    }
+    return Promise.reject(error)
+  }
+)

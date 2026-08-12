@@ -52,7 +52,7 @@ export function DashboardPage() {
             <ServiceCard
               key={order.id}
               order={order}
-              clientName={getClientName(order.client_id)}
+              clientName={getClientName(order.clientId)}
             />
           ))}
         </div>
